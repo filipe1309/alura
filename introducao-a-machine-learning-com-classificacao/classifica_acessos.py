@@ -1,3 +1,6 @@
+# Abordagem inicial
+# 1. separar 90% para treino e 10% para teste: 88.89%
+
 from dados import carregar_acessos
 
 X, Y = carregar_acessos()
