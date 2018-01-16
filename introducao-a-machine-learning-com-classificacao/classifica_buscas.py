@@ -3,11 +3,11 @@ import pandas as pd
 # data frame
 df = pd.read_csv('busca.csv')
 
-X = df[['home', 'busca', 'logado']]
-Y = df['comprou']
+X_df = df[['home', 'busca', 'logado']]
+Y_df = df['comprou']
 
-Xdummies = pd.get_dummies(X);
-Ydummies = Y;
+Xdummies_df = pd.get_dummies(X_df);
+Ydummies_df = Y_df;
 
-print(Xdummies)
-print(Ydummies)
+print(Xdummies_df)
+print(Ydummies_df)
