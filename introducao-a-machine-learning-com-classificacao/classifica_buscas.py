@@ -9,5 +9,8 @@ Y_df = df['comprou']
 Xdummies_df = pd.get_dummies(X_df);
 Ydummies_df = Y_df;
 
-print(Xdummies_df)
-print(Ydummies_df)
+X = Xdummies_df.values
+Y = Ydummies_df.values
+
+print(X)
+print(Y)
