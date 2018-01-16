@@ -2,4 +2,8 @@
 import pandas as pd
 # data frame
 df = pd.read_csv('busca.csv')
-print(df)
+
+X = df[['home', 'busca', 'logado']]
+Y = df['comprou']
+
+print(X)
