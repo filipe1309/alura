@@ -13,8 +13,8 @@ X = Xdummies_df.values
 Y = Ydummies_df.values
 
 # a eficacia do algoritmo que chuta tudo 0 ou 1
-acerto_de_um = sum(Y)
-acerto_de_zero = len(Y) - acerto_de_um
+acerto_de_um = len(Y[Y==1]) #sum(Y)
+acerto_de_zero = len(Y[Y==0]) #len(Y) - acerto_de_um
 taxa_de_acerto_base = 100.0 * max(acerto_de_um, acerto_de_zero) / len(Y)
 print("Taxa de acerto base: %f" % taxa_de_acerto_base)
 
