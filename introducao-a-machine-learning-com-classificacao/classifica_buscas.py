@@ -1,3 +1,5 @@
+from collections import Counter
+
 # using panda data analysis - sudo pip install pandas --upgrade
 import pandas as pd
 # data frame
@@ -13,9 +15,10 @@ X = Xdummies_df.values
 Y = Ydummies_df.values
 
 # a eficacia do algoritmo que chuta tudo 0 ou 1
-acerto_de_um = len(Y[Y==1]) #sum(Y)
-acerto_de_zero = len(Y[Y==0]) #len(Y) - acerto_de_um
-taxa_de_acerto_base = 100.0 * max(acerto_de_um, acerto_de_zero) / len(Y)
+acerto_base = max(Counter(Y).itervalues())
+# acerto_de_um = list(Y).count('sim') # len(Y[Y==1]) # sum(Y)
+# acerto_de_zero = list(Y).count('nao') # len(Y[Y==0]) # len(Y) - acerto_de_um
+taxa_de_acerto_base = 100.0 * acerto_base / len(Y)
 print("Taxa de acerto base: %f" % taxa_de_acerto_base)
 
 # 90% train, 10% test
@@ -35,10 +38,11 @@ modelo = MultinomialNB()
 modelo.fit(treino_dados, treino_marcacoes)
 
 resultado = modelo.predict(teste_dados)
-diferencas = resultado - teste_marcacoes
+acertos = (resultado == teste_marcacoes)
+# diferencas = resultado - teste_marcacoes
 
-acertos = [d for d in diferencas if d == 0]
-total_de_acertos = len(acertos)
+# acertos = [d for d in diferencas if d == 0]
+total_de_acertos = sum(acertos)
 total_de_elementos = len(teste_dados)
 taxa_de_acerto = 100.0 * total_de_acertos / total_de_elementos
 
