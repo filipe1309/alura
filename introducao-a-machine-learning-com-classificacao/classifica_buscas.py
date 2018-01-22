@@ -2,8 +2,15 @@ from collections import Counter
 
 # using panda data analysis - sudo pip install pandas --upgrade
 import pandas as pd
+
+# initial tests: home, busca, logado => comprou
+# home, busca
+# home, logado
+# busca, logado
+# busca => 85.71% (7 tests)
+
 # data frame
-df = pd.read_csv('busca.csv')
+df = pd.read_csv('busca2.csv')
 
 X_df = df[['home', 'busca', 'logado']]
 Y_df = df['comprou']
