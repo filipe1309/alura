@@ -10,7 +10,7 @@ import pandas as pd
 # busca => 85.71% (7 tests)
 
 # data frame
-df = pd.read_csv('busca2.csv')
+df = pd.read_csv('busca.csv')
 
 X_df = df[['home', 'busca', 'logado']]
 Y_df = df['comprou']
@@ -33,8 +33,12 @@ teste_dados = X[-tamanho_de_teste:]
 teste_marcacoes = Y[-tamanho_de_teste:]
 
 
-from sklearn.naive_bayes import MultinomialNB
-modelo = MultinomialNB()
+#from sklearn.naive_bayes import MultinomialNB
+#modelo = MultinomialNB()
+
+from sklearn.ensemble import AdaBoostClassifier
+modelo = AdaBoostClassifier()
+
 modelo.fit(treino_dados, treino_marcacoes)
 
 resultado = modelo.predict(teste_dados)
