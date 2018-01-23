@@ -64,15 +64,36 @@ def fit_and_predict(nome, modelo, treino_dados, treino_marcacoes, teste_dados, t
 
 	msg = "Taxa de acerto do algoritmo: {0}: {1}".format(nome, taxa_de_acerto)
 	print(msg)
+	return taxa_de_acerto
 
 
 from sklearn.naive_bayes import MultinomialNB
-modelo = MultinomialNB()
-fit_and_predict("MultinomialNB", modelo, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
+modeloMultinomial = MultinomialNB()
+resultadoMultinomial = fit_and_predict("MultinomialNB", modeloMultinomial, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
 
 from sklearn.ensemble import AdaBoostClassifier
-modelo = AdaBoostClassifier()
-fit_and_predict("AdaBoostClassifier", modelo, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
+modeloAdaBoost = AdaBoostClassifier()
+resultadoAdaBoost = fit_and_predict("AdaBoostClassifier", modeloAdaBoost, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
+
+
+if resultadoMultinomial > resultadoAdaBoost:
+	vencedor = modeloMultinomial
+else:
+	vencedor = modeloAdaBoost
+
+resultado = vencedor.predict(validacao_dados)
+
+acertos = (resultado == validacao_marcacoes)
+# diferencas = resultado - teste_marcacoes
+
+# acertos = [d for d in diferencas if d == 0]
+total_de_acertos = sum(acertos)
+total_de_elementos = len(validacao_marcacoes)
+taxa_de_acerto = 100.0 * total_de_acertos / total_de_elementos
+
+msg = "Taxa de acerto do vencedor entre os dois algoritmos no mundo real: {0}".format(taxa_de_acerto)
+print(msg)
+
 
 
 # a eficacia do algoritmo que chuta tudo um unico valor
