@@ -10,7 +10,7 @@ import pandas as pd
 # busca => 85.71% (7 tests)
 
 # data frame
-df = pd.read_csv('busca2.csv')
+df = pd.read_csv('busca.csv')
 
 X_df = df[['home', 'busca', 'logado']]
 Y_df = df['comprou']
@@ -22,16 +22,33 @@ X = Xdummies_df.values
 Y = Ydummies_df.values
 
 # 90% train, 10% test
-porcentagem_de_treino = 0.9
+#porcentagem_de_treino = 0.9
+
+porcentagem_de_treino = 0.8
+porcentagem_de_teste = 0.1
 tamanho_de_treino = int(porcentagem_de_treino * len(Y))
-tamanho_de_teste = int(len(Y) - tamanho_de_treino)
+#tamanho_de_teste = int(len(Y) - tamanho_de_treino)
+tamanho_de_teste = porcentagem_de_teste * len(Y)
+tamanho_de_validacao = len(Y) - tamanho_de_treino - tamanho_de_teste
 
-treino_dados = X[:tamanho_de_treino]
-treino_marcacoes = Y[:tamanho_de_treino]
+#treino_dados = X[:tamanho_de_treino]
+#treino_marcacoes = Y[:tamanho_de_treino]
 
-teste_dados = X[-tamanho_de_teste:]
-teste_marcacoes = Y[-tamanho_de_teste:]
+#teste_dados = X[-tamanho_de_teste:]
+#teste_marcacoes = Y[-tamanho_de_teste:]
 
+# 0 - 799
+treino_dados = X[0:tamanho_de_treino]
+treino_marcacoes = Y[0:tamanho_de_treino]
+
+# 800 - 899
+fim_de_teste = int(tamanho_de_treino + tamanho_de_teste)
+teste_dados = X[tamanho_de_treino:fim_de_teste]
+teste_marcacoes = Y[tamanho_de_treino:fim_de_teste]
+
+# 900 - 999
+validacao_dados = X[fim_de_teste:]
+validacao_marcacoes = Y[fim_de_teste:]
 
 def fit_and_predict(nome, modelo, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes):
 	modelo.fit(treino_dados, treino_marcacoes)
