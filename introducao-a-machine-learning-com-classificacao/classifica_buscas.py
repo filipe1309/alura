@@ -97,9 +97,9 @@ print(msg)
 
 
 # a eficacia do algoritmo que chuta tudo um unico valor
-acerto_base = max(Counter(teste_marcacoes).itervalues())
+acerto_base = max(Counter(validacao_marcacoes).itervalues())
 # acerto_de_um = list(Y).count('sim') # len(Y[Y==1]) # sum(Y)
 # acerto_de_zero = list(Y).count('nao') # len(Y[Y==0]) # len(Y) - acerto_de_um
-taxa_de_acerto_base = 100.0 * acerto_base / len(teste_marcacoes)
+taxa_de_acerto_base = 100.0 * acerto_base / len(validacao_marcacoes)
 print("Taxa de acerto base: %f" % taxa_de_acerto_base)
-print("Total de testes %d" % len(teste_dados))
+print("Total de testes %d" % len(validacao_dados))
