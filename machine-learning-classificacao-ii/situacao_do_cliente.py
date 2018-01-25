@@ -61,6 +61,25 @@ def fit_and_predict(nome, modelo, treino_dados, treino_marcacoes, teste_dados, t
 	return taxa_de_acerto
 
 
+
+from sklearn.multiclass import OneVsRestClassifier
+# rodar o algoritmo de claficacao uma vez para cada variavel, 
+# deixando na coluna das marcacoes apenas 2 opcoes, 
+# possibilitando classificar utilizando os algoritmos ja conhecidos,
+# e escolhar como variavel Y, aclassificacao com maior probabilidade (%)
+# ex: variaveis Y: a,b,c 
+# primeira vez => a ou o resto (b,c) -> probabilidade (%), 
+# segunda vez => b ou o resto (a,c) -> probabilidade (%),
+# terceira vez => c ou o resto (a,c) -> probabilidade (%),
+# (substituindo 2 por 1) 0=>0 1=>1,2 LinearSVC(algoritmo) 0 ou do resto (38%, resto 62%)
+# (substituindo 2 por 0) 0=>0,2 1=>1 LinearSVC(algoritmo) 1 ou do resto (44%, resto 56%) -> Variavel Y escolhida como resposta
+# (substituindo 1 por 0) 0=>0,1 2=>2 LinearSVC(algoritmo) 2 ou do resto (20%, resto 80%)
+
+from sklearn.svm import LinearSVC
+modeloOneVsRest = OneVsRestClassifier(LinearSVC(random_state = 0))
+resultadoOneVsRest = fit_and_predict("OneVsRest", modeloOneVsRest, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
+
+
 from sklearn.naive_bayes import MultinomialNB
 modeloMultinomial = MultinomialNB()
 resultadoMultinomial = fit_and_predict("MultinomialNB", modeloMultinomial, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
