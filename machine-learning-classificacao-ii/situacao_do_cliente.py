@@ -62,7 +62,6 @@ def fit_and_predict(nome, modelo, treino_dados, treino_marcacoes, teste_dados, t
 
 resultados = {}
 
-from sklearn.multiclass import OneVsRestClassifier
 # rodar o algoritmo de claficacao uma vez para cada variavel, 
 # deixando na coluna das marcacoes apenas 2 opcoes, 
 # possibilitando classificar utilizando os algoritmos ja conhecidos,
@@ -74,11 +73,17 @@ from sklearn.multiclass import OneVsRestClassifier
 # (substituindo 2 por 1) 0=>0 1=>1,2 LinearSVC(algoritmo) 0 ou do resto (38%, resto 62%)
 # (substituindo 2 por 0) 0=>0,2 1=>1 LinearSVC(algoritmo) 1 ou do resto (44%, resto 56%) -> Variavel Y escolhida como resposta
 # (substituindo 1 por 0) 0=>0,1 2=>2 LinearSVC(algoritmo) 2 ou do resto (20%, resto 80%)
-
 from sklearn.svm import LinearSVC
+from sklearn.multiclass import OneVsRestClassifier
 modeloOneVsRest = OneVsRestClassifier(LinearSVC(random_state = 0))
 resultadoOneVsRest = fit_and_predict("OneVsRest", modeloOneVsRest, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
 resultados[resultadoOneVsRest] = modeloOneVsRest
+
+# cost: n^2
+from sklearn.multiclass import OneVsOneClassifier
+modeloOneVsOne = OneVsOneClassifier(LinearSVC(random_state = 0))
+resultadoOneVsOne = fit_and_predict("OneVsOne", modeloOneVsOne, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
+resultados[resultadoOneVsOne] = modeloOneVsOne
 
 from sklearn.naive_bayes import MultinomialNB
 modeloMultinomial = MultinomialNB()
