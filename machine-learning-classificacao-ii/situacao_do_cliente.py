@@ -60,7 +60,7 @@ def fit_and_predict(nome, modelo, treino_dados, treino_marcacoes, teste_dados, t
 	print(msg)
 	return taxa_de_acerto
 
-
+resultados = {}
 
 from sklearn.multiclass import OneVsRestClassifier
 # rodar o algoritmo de claficacao uma vez para cada variavel, 
@@ -78,21 +78,23 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 modeloOneVsRest = OneVsRestClassifier(LinearSVC(random_state = 0))
 resultadoOneVsRest = fit_and_predict("OneVsRest", modeloOneVsRest, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
-
+resultados[resultadoOneVsRest] = modeloOneVsRest
 
 from sklearn.naive_bayes import MultinomialNB
 modeloMultinomial = MultinomialNB()
 resultadoMultinomial = fit_and_predict("MultinomialNB", modeloMultinomial, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
-
+resultados[resultadoMultinomial] = modeloMultinomial
 from sklearn.ensemble import AdaBoostClassifier
 modeloAdaBoost = AdaBoostClassifier()
 resultadoAdaBoost = fit_and_predict("AdaBoostClassifier", modeloAdaBoost, treino_dados, treino_marcacoes, teste_dados, teste_marcacoes)
+resultados[resultadoAdaBoost] = modeloAdaBoost
 
+print resultados
+maximo = max(resultados)
+vencedor = resultados[maximo]
 
-if resultadoMultinomial > resultadoAdaBoost:
-	vencedor = modeloMultinomial
-else:
-	vencedor = modeloAdaBoost
+print "Vencedor: "
+print vencedor
 
 resultado = vencedor.predict(validacao_dados)
 
