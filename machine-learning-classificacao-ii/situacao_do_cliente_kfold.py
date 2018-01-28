@@ -71,9 +71,7 @@ vencedor.fit(treino_dados, treino_marcacoes)
 resultado = vencedor.predict(validacao_dados)
 
 acertos = (resultado == validacao_marcacoes)
-# diferencas = resultado - teste_marcacoes
 
-# acertos = [d for d in diferencas if d == 0]
 total_de_acertos = sum(acertos)
 total_de_elementos = len(validacao_marcacoes)
 taxa_de_acerto = 100.0 * total_de_acertos / total_de_elementos
@@ -81,12 +79,8 @@ taxa_de_acerto = 100.0 * total_de_acertos / total_de_elementos
 msg = "Taxa de acerto do vencedor entre os dois algoritmos no mundo real: {0}".format(taxa_de_acerto)
 print(msg)
 
-
-
 # a eficacia do algoritmo que chuta tudo um unico valor
 acerto_base = max(Counter(validacao_marcacoes).itervalues())
-# acerto_de_um = list(Y).count('sim') # len(Y[Y==1]) # sum(Y)
-# acerto_de_zero = list(Y).count('nao') # len(Y[Y==0]) # len(Y) - acerto_de_um
 taxa_de_acerto_base = 100.0 * acerto_base / len(validacao_marcacoes)
 print("Taxa de acerto base: %f" % taxa_de_acerto_base)
 print("Total de testes %d" % len(validacao_dados))
