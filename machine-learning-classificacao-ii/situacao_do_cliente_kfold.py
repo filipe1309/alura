@@ -68,16 +68,20 @@ print "Vencedor: "
 print vencedor
 
 vencedor.fit(treino_dados, treino_marcacoes)
-resultado = vencedor.predict(validacao_dados)
 
-acertos = (resultado == validacao_marcacoes)
+def teste_real(modelo, validacao_dados, validacao_marcacoes):
+	resultado = vencedor.predict(validacao_dados)
 
-total_de_acertos = sum(acertos)
-total_de_elementos = len(validacao_marcacoes)
-taxa_de_acerto = 100.0 * total_de_acertos / total_de_elementos
+	acertos = (resultado == validacao_marcacoes)
 
-msg = "Taxa de acerto do vencedor entre os dois algoritmos no mundo real: {0}".format(taxa_de_acerto)
-print(msg)
+	total_de_acertos = sum(acertos)
+	total_de_elementos = len(validacao_marcacoes)
+	taxa_de_acerto = 100.0 * total_de_acertos / total_de_elementos
+
+	msg = "Taxa de acerto do vencedor entre os dois algoritmos no mundo real: {0}".format(taxa_de_acerto)
+	print(msg)
+
+teste_real(vencedor, validacao_dados, validacao_marcacoes)
 
 # a eficacia do algoritmo que chuta tudo um unico valor
 acerto_base = max(Counter(validacao_marcacoes).itervalues())
