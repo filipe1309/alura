@@ -78,7 +78,7 @@ resultadoMultinomial = fit_and_predict("MultinomialNB", modeloMultinomial, trein
 resultados[resultadoMultinomial] = modeloMultinomial
 
 from sklearn.ensemble import AdaBoostClassifier
-modeloAdaBoost = AdaBoostClassifier()
+modeloAdaBoost = AdaBoostClassifier(random_state=0)
 resultadoAdaBoost = fit_and_predict("AdaBoostClassifier", modeloAdaBoost, treino_dados, treino_marcacoes)
 resultados[resultadoAdaBoost] = modeloAdaBoost
 
