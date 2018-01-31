@@ -16,5 +16,7 @@ dicionario = set()
 for lista in textosQuebrados:
 	dicionario.update(lista)
 
-print dicionario
-print len(dicionario)
+totalDePalavras = len(dicionario)
+tuplas = zip(dicionario, xrange(totalDePalavras))
+tradutor = {palavra:indice for palavra,indice in tuplas}
+print tradutor['pode']
