@@ -10,8 +10,6 @@ classificacoes = pd.read_csv('emails.csv')
 textosPuros = classificacoes['email']
 textosQuebrados = textosPuros.str.lower().str.split(' ')
 
-print textosQuebrados
-
 dicionario = set()
 for lista in textosQuebrados:
 	dicionario.update(lista)
@@ -21,12 +19,17 @@ tuplas = zip(dicionario, xrange(totalDePalavras))
 # Dicionario palavra: numero/posicao
 tradutor = {palavra:indice for palavra,indice in tuplas}
 
-texto = textosQuebrados[0]
-vetor = [0] * totalDePalavras
-for palavra in texto:
-	if palavra in tradutor:
-		posicao = tradutor[palavra]
-		vetor[posicao] += 1
+def vetorizar_texto(texto, tradutor):
+	vetor = [0] * len(tradutor)
+	for palavra in texto:
+		if palavra in tradutor:
+			posicao = tradutor[palavra]
+			vetor[posicao] += 1
+	return vetor
+	
+print vetorizar_texto(textosQuebrados[0], tradutor)
+print vetorizar_texto(textosQuebrados[1], tradutor)
+print vetorizar_texto(textosQuebrados[2], tradutor)
 
-print texto
-print vetor
+vetoresDeTexto = [vetorizar_texto(texto, tradutor) for texto in textosQuebrados]
+print vetoresDeTexto
