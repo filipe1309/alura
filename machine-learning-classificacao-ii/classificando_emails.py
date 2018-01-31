@@ -18,5 +18,15 @@ for lista in textosQuebrados:
 
 totalDePalavras = len(dicionario)
 tuplas = zip(dicionario, xrange(totalDePalavras))
+# Dicionario palavra: numero/posicao
 tradutor = {palavra:indice for palavra,indice in tuplas}
-print tradutor['pode']
+
+texto = textosQuebrados[0]
+vetor = [0] * totalDePalavras
+for palavra in texto:
+	if palavra in tradutor:
+		posicao = tradutor[palavra]
+		vetor[posicao] += 1
+
+print texto
+print vetor
