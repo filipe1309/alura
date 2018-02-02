@@ -9,10 +9,11 @@ texto1 = "Se eu comprar cinco anos antecipados, eu ganho algum desconto?"
 texto1 = "O exercício 15 do curso de Java 1 está com a resposta errada"
 texto1 = "Existe algum para cuidar do marketing da minha empresa"
 
-
 classificacoes = pd.read_csv('emails.csv', encoding = 'utf-8')
 textosPuros = classificacoes['email']
-textosQuebrados = textosPuros.str.lower().str.split(' ')
+frases = textosPuros.str.lower()
+# nltk.download('punkt')
+textosQuebrados = [nltk.tokenize.word_tokenize(frase) for frase in frases]
 
 # Remove palavras sem significado proprio, ex: com, para, as, aquelas, ....
 # nltk.download('stopwords')
@@ -25,7 +26,7 @@ stemmer = nltk.stem.RSLPStemmer()
 
 dicionario = set()
 for lista in textosQuebrados:
-	validas = [stemmer.stem(palavra) for palavra in lista if palavra not in stopwords and len(palavra) > 0]
+	validas = [stemmer.stem(palavra) for palavra in lista if palavra not in stopwords and len(palavra) > 2]
 	dicionario.update(validas)
 print dicionario
 
