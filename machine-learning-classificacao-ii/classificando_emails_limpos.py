@@ -10,16 +10,22 @@ texto1 = "O exercício 15 do curso de Java 1 está com a resposta errada"
 texto1 = "Existe algum para cuidar do marketing da minha empresa"
 
 
-classificacoes = pd.read_csv('emails.csv')
+classificacoes = pd.read_csv('emails.csv', encoding = 'utf-8')
 textosPuros = classificacoes['email']
 textosQuebrados = textosPuros.str.lower().str.split(' ')
 
+# Remove palavras sem significado proprio, ex: com, para, as, aquelas, ....
 # nltk.download('stopwords')
 stopwords = nltk.corpus.stopwords.words('portuguese')
 
+# Serve para obter a raiz da palavra em portugues, ex: amigos -> amig, amigo -> amig, ...
+# Remove o sufixo e fica com a raiz
+# nltk.download('rslp')
+stemmer = nltk.stem.RSLPStemmer() 
+
 dicionario = set()
 for lista in textosQuebrados:
-	validas = [palavra for palavra in lista if palavra not in stopwords]
+	validas = [stemmer.stem(palavra) for palavra in lista if palavra not in stopwords and len(palavra) > 0]
 	dicionario.update(validas)
 print dicionario
 
