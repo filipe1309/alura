@@ -38,13 +38,15 @@ print totalDePalavras
 def vetorizar_texto(texto, tradutor):
 	vetor = [0] * len(tradutor)
 	for palavra in texto:
-		if palavra in tradutor:
-			posicao = tradutor[palavra]
-			vetor[posicao] += 1
+		if len(palavra) > 0:
+			raiz = stemmer.stem(palavra)
+			if raiz in tradutor:
+				posicao = tradutor[raiz]
+				vetor[posicao] += 1
 	return vetor
 
 vetoresDeTexto = [vetorizar_texto(texto, tradutor) for texto in textosQuebrados]
-
+print vetoresDeTexto[0]
 marcas = classificacoes['classificacao']
 
 X = np.array(vetoresDeTexto)
