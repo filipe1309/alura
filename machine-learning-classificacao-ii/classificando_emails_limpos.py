@@ -3,6 +3,7 @@ from collections import Counter
 from sklearn.cross_validation import cross_val_score
 import numpy as np
 import pandas as pd
+import nltk
 
 texto1 = "Se eu comprar cinco anos antecipados, eu ganho algum desconto?"
 texto1 = "O exercício 15 do curso de Java 1 está com a resposta errada"
@@ -13,9 +14,13 @@ classificacoes = pd.read_csv('emails.csv')
 textosPuros = classificacoes['email']
 textosQuebrados = textosPuros.str.lower().str.split(' ')
 
+# nltk.download('stopwords')
+stopwords = nltk.corpus.stopwords.words('portuguese')
+
 dicionario = set()
 for lista in textosQuebrados:
-	dicionario.update(lista)
+	validas = [palavra for palavra in lista if palavra not in stopwords]
+	dicionario.update(validas)
 print dicionario
 
 totalDePalavras = len(dicionario)
